@@ -59,14 +59,26 @@ const noVote = (req, res) => {
 };
 
 const addAssessment = (req, res) => {
+  console.log(req.body);
   Claim.findOneAndUpdate(
     { claimId: req.params.claimId },
     { assessment: req.body.assessment }
   )
     // .then()
-    .then((claim) => res.json({ claim, success: true }))
+    .then(() => {
+      startVoting(req.params.claimId, res);
+    })
     .catch((err) => res.status(404).json({ success: false }));
-    // req.body.vote == "Accept" ? yesVote(req, res) : noVote(req, res)
+  // req.body.vote == "Accept" ? yesVote(req, res) : noVote(req, res)
+};
+
+const startVoting = (claimId, res) => {
+  Claim.findOneAndUpdate({ claimId: claimId }, { status: "Voting" })
+    // .then()
+    .then((claim) => {
+      res.json({ claim, success: true });
+    })
+    .catch((err) => res.status(404).json({ success: false }));
 };
 
 module.exports = {

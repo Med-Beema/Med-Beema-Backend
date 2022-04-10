@@ -57,6 +57,7 @@ const ClaimSchema = new Schema({
   },
   assessment: {
     type: String,
+    default: "",
   },
 });
 
