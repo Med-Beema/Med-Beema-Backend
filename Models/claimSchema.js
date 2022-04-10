@@ -43,6 +43,21 @@ const ClaimSchema = new Schema({
     type: String,
     default: "Assessment",
   },
+  voteFor: {
+    type: Number,
+    default: 0,
+  },
+  voteAgainst: {
+    type: Number,
+    default: 0,
+  },
+  quorum: {
+    type: Number,
+    default: 0,
+  },
+  assessment: {
+    type: String,
+  },
 });
 
 module.exports = Claim = mongoose.model("claim", ClaimSchema);

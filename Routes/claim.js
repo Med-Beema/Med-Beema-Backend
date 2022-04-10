@@ -6,6 +6,8 @@ const Claim = require("../Models/claimSchema");
 const {
   getClaimCount,
   getAllClaims,
+  yesVote,
+  noVote,
 } = require("../Controllers/claimController");
 
 /**
@@ -56,6 +58,35 @@ router.post("/claim", (req, res) => {
   console.log(newClaim);
   newClaim.save().then((claim) => res.json(claim));
 });
+
+/**
+ *  @route Put /voteFor/:id
+ *  @desc Edit a Vote
+ *  @access Private
+ */
+router.put("/voteFor/:claimId", (req, res) => {
+  yesVote(req, res);
+});
+
+
+/**
+ *  @route Put /voteFor/:id
+ *  @desc Edit a Vote
+ *  @access Private
+ */
+router.put("/voteAgainst/:claimId", (req, res) => {
+  noVote(req, res);
+});
+
+/**
+ *  @route Put /voteFor/:id
+ *  @desc Edit a Vote
+ *  @access Private
+ */
+router.put("/voteAgainst/:claimId", (req, res) => {
+  noVote(req, res);
+});
+
 
 // /**
 //  *  @route DELETE /claim/:id

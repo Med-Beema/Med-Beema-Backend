@@ -32,4 +32,23 @@ const getAllClaims = (req, res) => {
     .then((claim) => res.json(claim));
 };
 
-module.exports = { addClaim, getClaimCount, getAllClaims };
+const yesVote = (req, res) => {
+  console.log("id", req.params.claimId);
+  Claim.findOneAndUpdate(
+    { claimId: req.params.claimId },
+    { $inc: { voteFor: 1, quorum: 1 } }
+  )
+    .then((claim) => res.json({ claim }))
+    .catch((err) => res.status(404).json({ success: false }));
+};
+
+const noVote = (req, res) => {
+  Claim.findOneAndUpdate(
+    { claimId: req.params.claimId },
+    { $inc: { voteAgainst: 1, quorum: 1 } }
+  )
+    .then((claim) => res.json({ claim, success: true }))
+    .catch((err) => res.status(404).json({ success: false }));
+};
+
+module.exports = { addClaim, getClaimCount, getAllClaims, yesVote, noVote };
