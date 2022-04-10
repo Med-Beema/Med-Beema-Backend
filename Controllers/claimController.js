@@ -14,16 +14,23 @@ const addClaim = (req, res) => {
     endDate: req.body.endDate,
   });
   console.log(newClaim);
+  setClaimCount();
   newClaim.save().then((claim) => res.json(claim));
 };
 
-const getClaimCount = () => {
-  return Claim.countDocuments({});
-  // Claim.find().count(function (err, count) {
-  //   if (err) console.log(err);
-  //   else return count;
-  // });
-};
+// const setClaimCount = () => {
+//   // return Claim.countDocuments({});
+//   Claim.find().count(function (err, count) {
+//     if (err) console.log(err);
+//     else localStorage.setItem("claimCount", count);
+//   });
+// };
+
+// const getClaimCount = () => {
+//   let count =  localStorage.getItem("claimCount");
+//   localStorage.getItem("claimCount"
+//   )
+// };
 
 const getAllClaims = (req, res) => {
   // console.log(getClaimCount());
@@ -51,4 +58,23 @@ const noVote = (req, res) => {
     .catch((err) => res.status(404).json({ success: false }));
 };
 
-module.exports = { addClaim, getClaimCount, getAllClaims, yesVote, noVote };
+const addAssessment = (req, res) => {
+  Claim.findOneAndUpdate(
+    { claimId: req.params.claimId },
+    { assessment: req.body.assessment }
+  )
+    // .then()
+    .then((claim) => res.json({ claim, success: true }))
+    .catch((err) => res.status(404).json({ success: false }));
+    // req.body.vote == "Accept" ? yesVote(req, res) : noVote(req, res)
+};
+
+module.exports = {
+  addClaim,
+  // getClaimCount,
+  // setClaimCount,
+  getAllClaims,
+  yesVote,
+  noVote,
+  addAssessment,
+};

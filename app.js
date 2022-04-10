@@ -23,6 +23,7 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// console.log(getClaimCount());
 //include routes
 app.use("/", require("./Routes/forms"));
 app.use("/", require("./Routes/policy"));

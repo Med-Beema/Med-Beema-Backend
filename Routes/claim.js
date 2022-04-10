@@ -8,6 +8,7 @@ const {
   getAllClaims,
   yesVote,
   noVote,
+  addAssessment,
 } = require("../Controllers/claimController");
 
 /**
@@ -68,7 +69,6 @@ router.put("/voteFor/:claimId", (req, res) => {
   yesVote(req, res);
 });
 
-
 /**
  *  @route Put /voteFor/:id
  *  @desc Edit a Vote
@@ -79,14 +79,13 @@ router.put("/voteAgainst/:claimId", (req, res) => {
 });
 
 /**
- *  @route Put /voteFor/:id
- *  @desc Edit a Vote
+ *  @route Put /assessment/:id
+ *  @desc add assessment
  *  @access Private
  */
-router.put("/voteAgainst/:claimId", (req, res) => {
-  noVote(req, res);
+router.put("/assessment/:claimId", (req, res) => {
+  addAssessment(req, res);
 });
-
 
 // /**
 //  *  @route DELETE /claim/:id
